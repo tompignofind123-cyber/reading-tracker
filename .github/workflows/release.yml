@@ -10,19 +10,8 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: windows-latest
-            args: '--bundles nsis'
-          - platform: macos-latest
-            args: '--target universal-apple-darwin'
-          - platform: ubuntu-22.04
-            args: ''
-
-    runs-on: ${{ matrix.platform }}
+  build-windows:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -36,57 +25,32 @@ jobs:
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
 
-      - name: Install Linux deps
-        if: matrix.platform == 'ubuntu-22.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
-
       - name: Install npm deps
         run: npm ci
 
-      - name: Build Tauri app (Windows, NSIS only)
-        if: matrix.platform == 'windows-latest'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build (NSIS only)
         run: npm run tauri -- build --bundles nsis
 
-      - name: Build & publish Tauri app
-        if: matrix.platform != 'windows-latest'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: ${{ github.ref_name }}
-          releaseName: 'Reading Tracker ${{ github.ref_name }}'
-          releaseBody: |
-            ## What's new
-
-            See [CHANGELOG.md](./CHANGELOG.md) for details.
-
-            ### Downloads
-            - Windows: `_x64-setup.exe` (NSIS installer)
-            - macOS: `.dmg`
-            - Linux: `.AppImage` / `.deb`
-          releaseDraft: true
-          prerelease: false
-          args: ${{ matrix.args }}
-
-      - name: Upload Windows NSIS to Release
-        if: matrix.platform == 'windows-latest'
+      - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: 'Reading Tracker ${{ github.ref_name }}'
           draft: true
+          prerelease: false
+          body: |
+            ## What's new
+
+            See [CHANGELOG.md](./CHANGELOG.md) for details.
+
+            ### Download
+            - **Windows (x64)**: `阅读记录管理器_*_x64-setup.exe`（NSIS 安装包，双击运行）
           files: |
             src-tauri/target/release/bundle/nsis/*.exe
             src-tauri/target/release/bundle/nsis/*.exe.sig

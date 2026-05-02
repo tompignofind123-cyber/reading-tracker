@@ -2,7 +2,7 @@
 
 # 📖 Reading Tracker · 阅读记录管理器
 
-**一款带 AI 对话能力的本地化阅读记录工具**
+**一款带 AI 对话能力的本地化阅读记录工具 · Windows 桌面**
 
 围绕你读过的每一本书与 AI 深度交流 · 上下文独立持久化 · 多源交叉验证防止信息污染
 
@@ -12,7 +12,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![SQLite](https://img.shields.io/badge/SQLite-bundled-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](#)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%20x64-0078D4?logo=windows&logoColor=white)](#)
 
 [特性](#-特性) · [截图](#-截图) · [安装](#-安装) · [AI 配置](#-ai-配置) · [使用指南](#-使用指南) · [技术栈](#-技术栈) · [开发](#-本地开发)
 
@@ -70,13 +70,13 @@
 ## 📦 安装
 
 ### 方式一：下载 Release（推荐）
-前往 [Releases](../../releases) 页面下载对应平台的安装包：
+前往 [Releases](../../releases) 页面下载最新版安装包：
 
-| 平台 | 文件 |
-|---|---|
-| Windows | `阅读记录管理器_x.y.z_x64-setup.exe` 或 `.msi` |
-| macOS | `阅读记录管理器_x.y.z_universal.dmg` |
-| Linux | `阅读记录管理器_x.y.z_amd64.AppImage` |
+| 平台 | 文件 | 说明 |
+|---|---|---|
+| Windows 10/11 (x64) | `阅读记录管理器_x.y.z_x64-setup.exe` | NSIS 安装包，双击运行向导即可 |
+
+> 当前仅适配 Windows。macOS / Linux 用户欢迎提 issue 或 PR。
 
 ### 方式二：从源码构建
 见 [本地开发](#-本地开发) 章节。
@@ -229,15 +229,14 @@ chat_messages(id, session_id → chat_sessions.id, role, content, sources_json, 
 ## 🛠 本地开发
 
 ### 环境要求
+- **Windows 10 / 11 x64**（当前仅支持 Windows）
 - [Node.js](https://nodejs.org) ≥ 18
 - [Rust](https://rustup.rs) ≥ 1.77（stable）
-- 平台依赖（按需）：
-  - **Windows**: WebView2（Win11 自带，Win10 自动安装）
-  - **macOS**: Xcode Command Line Tools
-  - **Linux**: `webkit2gtk-4.1`、`libssl-dev`、`build-essential` 等，详见 [Tauri 官方指南](https://v2.tauri.app/start/prerequisites/#linux)
+- WebView2（Win11 自带；Win10 由 Tauri 安装时自动拉起）
+- Visual Studio Build Tools（含 C++ 工作负载）—— 安装 Rust 时通常会引导
 
 ### 启动开发服务器
-```bash
+```powershell
 git clone https://github.com/<your-username>/reading-tracker.git
 cd reading-tracker
 
@@ -246,16 +245,17 @@ npm run tauri dev          # 首次启动会编译 Rust，约 1–3 分钟
 ```
 
 ### 构建发行版
-```bash
+```powershell
 npm run tauri build
-# 产物：src-tauri/target/release/bundle/{msi,dmg,deb,appimage}/...
-# 单可执行：src-tauri/target/release/reading-tracker.exe
+# 产物：
+#   src-tauri\target\release\reading-tracker.exe                          (单可执行)
+#   src-tauri\target\release\bundle\nsis\阅读记录管理器_*_x64-setup.exe   (NSIS 安装包)
 ```
 
 ### 类型检查
-```bash
-npm run build              # 包含 tsc --noEmit
-cargo check --manifest-path src-tauri/Cargo.toml
+```powershell
+npm run build              # 包含 tsc --noEmit + vite build
+cargo check --manifest-path src-tauri\Cargo.toml
 ```
 
 ---
@@ -265,20 +265,20 @@ cargo check --manifest-path src-tauri/Cargo.toml
 - ✅ **完全本地化** — 所有书籍记录、对话历史、API key 仅存于本机 SQLite
 - ✅ **不上传任何遥测** — 应用本身不连接任何"主控"服务器
 - ⚠️ **AI 调用走第三方** — 当你发送消息时，对话内容会经 reqwest 直接发送给你配置的 AI 服务商（OpenAI/Anthropic/Google 等），请遵守对应服务条款
-- ⚠️ **API key 当前明文存储** — 在 `%APPDATA%\com.reading-tracker.app\reading_tracker.db`（Windows），后续版本会加密
+- ⚠️ **API key 当前明文存储** — 在 `%APPDATA%\com.reading-tracker.app\reading_tracker.db`，后续版本会迁移到 Windows Credential Manager 加密
 
 ---
 
 ## 🗺️ 路线图
 
-- [ ] API key 用 OS Keyring 加密存储
+- [ ] API key 用 OS Keyring（Windows Credential Manager）加密存储
 - [ ] 对话超 token 时滚动总结压缩历史
 - [ ] 支持自定义 system prompt 模板
 - [ ] 引入 Tavily / Brave 作为可选搜索源（不依赖模型自带）
 - [ ] 对话导出为 Markdown / JSON
-- [ ] 移动端（iOS / Android via Tauri Mobile）
 - [ ] 多语言 UI（i18n）
 - [ ] Logseq / Obsidian 双向同步
+- [ ] macOS / Linux 适配（社区有需要再做）
 
 ---
 

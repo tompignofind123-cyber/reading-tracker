@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Build (NSIS only)
-        run: npm run tauri -- build --bundles nsis
+        run: npx tauri build --bundles nsis
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v2

@@ -38,9 +38,7 @@ body:
       options:
         - Windows 11
         - Windows 10
-        - macOS (Apple Silicon)
-        - macOS (Intel)
-        - Linux
+        - 其他（仅源码编译，不保证可用）
     validations:
       required: true
 

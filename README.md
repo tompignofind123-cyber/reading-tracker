@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%20x64-0078D4?logo=windows&logoColor=white)](#)
 
-[特性](#-特性) · [截图](#-截图) · [安装](#-安装) · [AI 配置](#-ai-配置) · [使用指南](#-使用指南) · [技术栈](#-技术栈) · [开发](#-本地开发)
+[特性](#-特性) · [安装](#-安装) · [AI 配置](#-ai-配置) · [使用指南](#-使用指南) · [技术栈](#-技术栈) · [开发](#-本地开发)
 
 </div>
 
@@ -50,20 +50,6 @@
 - **完全自定义深色标题栏** — 关闭 Windows 默认装饰，整窗融入暗色主题
 - **流畅流式响应** — Tauri Channel 实时推送 token，所见即所得
 - **Markdown + GFM 渲染** — 表格、代码块、引用、链接全支持
-
----
-
-## 📸 截图
-
-> 把下面的占位图片替换为你自己的截图（建议 1200×800 或更高清晰度）
-
-| 阅读列表 | 书籍详情 |
-|:---:|:---:|
-| ![list](docs/screenshots/list.png) | ![detail](docs/screenshots/detail.png) |
-
-| AI 对话 · 单本书模式 | AI 设置 |
-|:---:|:---:|
-| ![chat](docs/screenshots/chat.png) | ![settings](docs/screenshots/settings.png) |
 
 ---
 

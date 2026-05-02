@@ -1,0 +1,36 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4ead8"/>
+      <stop offset="100%" stop-color="#e5d3b6"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2f6fb0"/>
+      <stop offset="100%" stop-color="#174a83"/>
+    </linearGradient>
+    <linearGradient id="pages" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffdf8"/>
+      <stop offset="100%" stop-color="#f3eee4"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1024" height="1024" rx="220" fill="url(#bg)"/>
+
+  <rect x="196" y="204" width="286" height="616" rx="34" fill="url(#cover)"/>
+  <rect x="542" y="204" width="286" height="616" rx="34" fill="url(#cover)"/>
+
+  <rect x="234" y="236" width="222" height="552" rx="20" fill="url(#pages)"/>
+  <rect x="568" y="236" width="222" height="552" rx="20" fill="url(#pages)"/>
+
+  <rect x="495" y="204" width="34" height="616" rx="14" fill="#0f3864"/>
+
+  <rect x="272" y="306" width="146" height="16" rx="8" fill="#cfb58b"/>
+  <rect x="272" y="356" width="146" height="16" rx="8" fill="#cfb58b"/>
+  <rect x="272" y="406" width="118" height="16" rx="8" fill="#cfb58b"/>
+
+  <rect x="596" y="306" width="146" height="16" rx="8" fill="#cfb58b"/>
+  <rect x="596" y="356" width="146" height="16" rx="8" fill="#cfb58b"/>
+  <rect x="596" y="406" width="118" height="16" rx="8" fill="#cfb58b"/>
+
+  <path d="M184 230c0-28 22-50 50-50h556c28 0 50 22 50 50" stroke="#ffffff" stroke-opacity="0.4" stroke-width="14" fill="none"/>
+</svg>
